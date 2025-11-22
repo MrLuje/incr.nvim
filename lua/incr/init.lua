@@ -50,18 +50,19 @@ end
 M.setup = function(config)
   local incr_key = config.incr_key and config.incr_key or '<tab>'
   local decr_key = config.decr_key and config.decr_key or '<s-tab>'
+  local start_key = config.start_key and config.start_key or '<leader>i'
 
-  -- vim.keymap.set({ 'n' }, incr_key, function()
-  --   _G.selected_nodes = {}
+  vim.keymap.set({ 'n' }, start_key, function()
+    _G.selected_nodes = {}
 
-  --   local current_node = get_node_at_cursor()
-  --   if not current_node then
-  --     return
-  --   end
+    local current_node = get_node_at_cursor()
+    if not current_node then
+      return
+    end
 
-  --   table.insert(_G.selected_nodes, current_node)
-  --   select_node(current_node)
-  -- end, { desc = 'Select treesitter node' })
+    table.insert(_G.selected_nodes, current_node)
+    select_node(current_node)
+  end, { desc = 'Select treesitter node' })
 
   vim.keymap.set('x', incr_key, function()
     if #_G.selected_nodes == 0 then
